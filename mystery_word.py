@@ -16,16 +16,28 @@ def play_game():
     print(*blanks)
 
     lifelines = 8
-    # while lifelines > 0:
-    # loop player in game
-    guess = input('guess a letter ')
-    print(f'guess = {guess}')
-    # for letter in my_word:
-    # my_letters.append(letter)
-    if guess in my_letters:
-        print('DOPE, you guess good boi')
 
-    print(my_letters)
+    while lifelines > 0 and blanks != my_letters:
+        # loop player in game
+        guess = input('Guess a letter ').lower()
+        if len(guess) != 1 or not guess.isalpha():
+            print(f'\n{guess} is an invalid input\n')
+        elif guess in blanks:
+            print(f'{guess} has already been guessed\n')
+
+        elif guess in my_letters:
+            print('DOPE, you guess good boi\n')
+
+            for index, letter in enumerate(my_letters):
+                if guess == letter:
+                    blanks[index] = guess
+        else:
+            lifelines -= 1
+            print(f'sorry try again \nLives left: {lifelines}')
+
+        print('\n')
+        print(*blanks)
+        print('\n')
 
 
 if __name__ == "__main__":
