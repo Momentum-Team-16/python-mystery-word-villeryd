@@ -32,7 +32,7 @@ def play_game():
 
         if len(guess) != 1 or not guess.isalpha():
             print(f'\n{guess} is an invalid input\n')
-        elif guess in blanks:
+        elif guess in guesses or guess in blanks:
             print(f'{guess} has already been guessed\n')
 
         elif guess in my_letters:
@@ -54,9 +54,13 @@ def play_game():
     if lifelines > 0:
         print(f'Congrats, you win!!!! \n{win_msg}')
     else:
-        print(
-            f'{lose_msg}')
+        print(f'{lose_msg}')
 
 
 if __name__ == "__main__":
     play_game()
+    play_again = input('\nDo you want to play again? y/n ')
+    while play_again == 'y':
+        play_game()
+        play_again = input('\nDo you want to play again? y/n ')
+    print('Goodbye!')
