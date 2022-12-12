@@ -43,7 +43,7 @@ def play_game():
                     blanks[index] = guess
         else:
             guesses.append(guess)
-            unpacked_guesses = ' '.join(guesses)
+            unpacked_guesses = ', '.join(guesses)
             lifelines -= 1
             print(f'Sorry try again \nLives left: {lifelines}')
 
