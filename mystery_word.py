@@ -5,7 +5,16 @@ def play_game():
     # open the file and choose a word
     with open('words.txt') as my_list:
         read_list = my_list.read()
+    with open('win.txt') as win_message:
+        win_msg = win_message.read()
+    with open('lose.txt') as lose_message:
+        lose_msg = lose_message.read()
+    with open('intro.txt') as intro_message:
+        intro_msg = intro_message.read()
+    # takes all words and convert to list
     split_list = read_list.split()
+    print(intro_msg)
+    # pick random word
     my_word = random.choice(split_list)
     print(my_word)
     guesses = []
@@ -20,24 +29,33 @@ def play_game():
     while lifelines > 0 and blanks != my_letters:
         # loop player in game
         guess = input('Guess a letter ').lower()
+
         if len(guess) != 1 or not guess.isalpha():
             print(f'\n{guess} is an invalid input\n')
         elif guess in blanks:
             print(f'{guess} has already been guessed\n')
 
         elif guess in my_letters:
-            print('DOPE, you guess good boi\n')
+            print('Good guess!\n')
 
             for index, letter in enumerate(my_letters):
                 if guess == letter:
                     blanks[index] = guess
         else:
+            guesses.append(guess)
+            unpacked_guesses = ' '.join(guesses)
             lifelines -= 1
-            print(f'sorry try again \nLives left: {lifelines}')
+            print(f'Sorry try again \nLives left: {lifelines}')
 
-        print('\n')
-        print(*blanks)
-        print('\n')
+        unpacked_blanks = ' '.join(blanks)
+        print(f'\n{unpacked_blanks}\n')
+        if len(guesses) > 0:
+            print(f'\nWrong letters: {unpacked_guesses}')
+    if lifelines > 0:
+        print(f'Congrats, you win!!!! \n{win_msg}')
+    else:
+        print(
+            f'{lose_msg}')
 
 
 if __name__ == "__main__":
